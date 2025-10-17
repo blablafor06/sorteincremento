@@ -1,0 +1,224 @@
+local library = loadstring(game:HttpGet(('https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wall%20v3')))()
+local w = library:CreateWindow("Luck Incremental") -- Creates the window
+local main = w:CreateFolder("Functions") -- Creates the folder(U will put here your buttons,etc)
+
+
+if #getconnections(game.Players.LocalPlayer.Idled) <= 1 then
+	for i, v in getgc() do
+		if typeof(v) == "function" and string.find(string.lower(debug.info(v, "sn")), "afk") then
+			print(debug.info(v, "sn"))
+			hookfunction(v, newcclosure(function() return end))
+		end
+	end
+	game.Players.LocalPlayer.Idled:Connect(function()
+		game:GetService("VirtualUser"):CaptureController()
+		game:GetService("VirtualUser"):ClickButton2(Vector2.new())
+	end)
+end
+
+getgenv().energy = false
+game:GetService("RunService").RenderStepped:Connect(function()
+	if not getgenv().energy then return end
+	task.spawn(function()
+		game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("energyRequest"):FireServer("ReportClicks", 50)
+	end)
+end)
+
+main:Button("Auto Energy", function()
+	getgenv().energy = not getgenv().energy
+end)
+
+local fish = false
+main:Button("Auto Sell Fish", function()
+	fish = not fish
+	while fish do task.wait()
+		local valor = tonumber(string.sub(game:GetService("Players").LocalPlayer.Fish.Bass.Value, 3)) or 0
+		if valor > 0 then
+			game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("marketReq"):FireServer()
+		end
+	end
+end)
+
+local magma = false
+main:Button("Auto Magma", function()
+	magma = not magma
+	local button = workspace.Ash:FindFirstChild("Touch")
+	if not button then
+		game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("teleportEvent"):FireServer("World7Arrival")
+	end
+
+	repeat task.wait() until workspace.Ash:FindFirstChild("Touch")
+
+	game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("relicEquip"):FireServer("Thermal Suit")
+
+	while magma do task.wait()
+		while tonumber(string.sub(game:GetService("Players").LocalPlayer.Stats.Ash.Value, 3, 10)) == 0 and magma do task.wait()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Ash.Touch.CFrame
+		end
+
+		while tonumber(string.sub(game:GetService("Players").LocalPlayer.Stats.Igneous.Value, 3, 10)) == 0 and magma do task.wait()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Igneous.Touch.CFrame
+		end
+
+		while tonumber(string.sub(game:GetService("Players").LocalPlayer.Stats.Lava.Value, 3, 10)) == 0 and magma do task.wait()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Lava.Touch.CFrame
+		end
+
+		repeat task.wait() until tonumber(string.sub(workspace.Magma.BillboardGui.Gain.ContentText, 2, 4)) > 1
+
+		while workspace.Magma.BillboardGui.Gain.ContentText ~= "+1 Magma" and magma do task.wait()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Magma.Touch.CFrame
+		end
+	end
+end)
+
+local fahrenheit = false
+main:Button("Auto Fahrenheit", function()
+	fahrenheit = not fahrenheit
+	local worms = workspace.Worms:FindFirstChild("Touch")
+	if not worms then
+		game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("teleportEvent"):FireServer("World6Arrival")
+		repeat task.wait() until workspace.Worms:FindFirstChild("Touch")
+	end
+	local ashes = workspace.Ash:FindFirstChild("Touch")
+	if not ashes then
+		game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("teleportEvent"):FireServer("World7Arrival")
+		repeat task.wait() until workspace.Ash:FindFirstChild("Touch")
+	end
+
+	game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("relicEquip"):FireServer("Superior Fishing Rod")
+
+	while fahrenheit do task.wait()
+		while tonumber(string.sub(game:GetService("Players").LocalPlayer.Stats.Hooks.Value, 3, 10)) < 10000 and fahrenheit do task.wait(0.1)
+			game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("marketReq"):FireServer()
+			game:GetService("ReplicatedStorage").Events.temperatureReq:FireServer()
+		end
+
+		while tonumber(string.sub(game:GetService("Players").LocalPlayer.Stats.Worms.Value, 3, 10)) == 0 and fahrenheit do task.wait()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Worms.Touch.CFrame
+		end
+
+		while tonumber(string.sub(game:GetService("Players").LocalPlayer.Stats.Kelp.Value, 3, 10)) == 0 and fahrenheit do task.wait()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Kelp.Touch.CFrame
+		end
+
+		while tonumber(string.sub(game:GetService("Players").LocalPlayer.Stats.Seashells.Value, 3, 10)) == 0 and fahrenheit do task.wait()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Seashells.Touch.CFrame
+		end
+
+		while tonumber(string.sub(game:GetService("Players").LocalPlayer.Stats.Pearls.Value, 3, 10)) == 0 and fahrenheit do task.wait()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Pearls.Touch.CFrame
+		end
+
+		while tonumber(string.sub(game:GetService("Players").LocalPlayer.Stats.Ash.Value, 3, 10)) == 0 and fahrenheit do task.wait()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Ash.Touch.CFrame
+		end
+
+		while tonumber(string.sub(game:GetService("Players").LocalPlayer.Stats.Igneous.Value, 3, 10)) == 0 and fahrenheit do task.wait()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Igneous.Touch.CFrame
+		end
+
+		while tonumber(string.sub(game:GetService("Players").LocalPlayer.Stats.Lava.Value, 3, 10)) == 0 and fahrenheit do task.wait()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Lava.Touch.CFrame
+		end
+
+		while tonumber(string.sub(game:GetService("Players").LocalPlayer.Stats.Magma.Value, 3, 10)) == 0 and fahrenheit do task.wait()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Magma.Touch.CFrame
+		end
+
+		while tonumber(string.sub(game:GetService("Players").LocalPlayer.Stats.Magma.Value, 3, 10)) > 0 and fahrenheit do task.wait(0.1)
+			game:GetService("ReplicatedStorage").Events.temperatureReq:FireServer()
+		end
+	end
+end)
+
+main:Button("Get Tokenize", function()
+	task.spawn(function()
+		local tokenizeBoard = workspace:FindFirstChild("TokenizeBoard")
+		if not tokenizeBoard then
+			game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("teleportEvent"):FireServer("World0Arrival")
+		end
+
+		repeat task.wait() until workspace:FindFirstChild("TokenizeBoard")
+
+		game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("talentRequest"):FireServer("AutoLuck", -1e306)
+		repeat task.wait() until tonumber(string.sub(workspace.TokenizeBoard.SurfaceGui.TokenizeGain.ContentText, 2, 2)) > 0
+		game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("tokenizeReq"):FireServer()
+	end)
+end)
+
+main:Button("Buy all Talent Tree", function()
+	for i, v in pairs(game:GetService("Players").LocalPlayer.PlayerGui.TalentTreeGui.Frame.Frame.Nodes.Main:GetChildren()) do
+		local args = {
+		tostring(v),
+			0
+		}
+		game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("talentRequest"):FireServer(unpack(args))
+	end
+	for i, v in pairs(game:GetService("Players").LocalPlayer.PlayerGui.TalentTreeGui.Frame.Frame.Nodes:GetChildren()) do
+		if v:IsA("Folder") and v.name ~= "Main" and v.name ~= "Misc" then
+			local tabelaRelics = v:GetChildren()
+			if tabelaRelics then
+				for _, relics in pairs(tabelaRelics) do
+					local args = {
+					tostring(relics),
+						0
+					}
+					game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("talentRequest"):FireServer(unpack(args))
+				end
+			end
+		end
+	end
+end)
+
+local lrrunes = false
+main:Button("Runes LR Runes", function()
+	local pity = game:GetService("Players").LocalPlayer.MiscStats.LRPity
+	local gems = tonumber(string.sub(game:GetService("Players").LocalPlayer.MiscStats.Gems.Value, 3))
+	lrrunes = not lrrunes
+	while lrrunes and gems > 50 do task.wait()
+		game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("relicBuy"):FireServer("RuneBanner", 100000)
+		repeat task.wait() until pity.Value >= 2000
+		game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("relicBuy"):FireServer("RuneBanner", 1)
+		repeat task.wait() until pity.Value == 0
+	end
+	task.wait(5)
+	for i, v in pairs(game:GetService("Players").LocalPlayer.PlayerGui:GetChildren()) do
+		if tostring(v) == "AnimationGui" then
+			replicatesignal(v.Background.MouseButton1Click)
+		end
+	end
+end)
+
+local luckrunes = false
+main:Button("Lucky LR Runes", function()
+	local pity = game:GetService("Players").LocalPlayer.MiscStats.LRPity
+	local gems = tonumber(string.sub(game:GetService("Players").LocalPlayer.MiscStats.Gems.Value, 3))
+	luckrunes = not luckrunes
+	while luckrunes and gems > 50 do task.wait()
+		game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("relicBuy"):FireServer("LuckBanner", 100000)
+		repeat task.wait() until pity.Value >= 2000
+		game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("relicBuy"):FireServer("LuckBanner", 1)
+		repeat task.wait() until pity.Value == 0
+	end
+	task.wait(5)
+	for i, v in pairs(game:GetService("Players").LocalPlayer.PlayerGui:GetChildren()) do
+		if tostring(v) == "AnimationGui" then
+			replicatesignal(v.Background.MouseButton1Click)
+		end
+	end
+end)
+
+main:Button("Destroy Gui",function()
+	for i, v in game.CoreGui:GetChildren() do
+		if #v.Name > 32 then
+			luckrunes = false
+			lrrunes = false
+			fahrenheit = false
+			magma = false
+			fish = false
+			getgenv().energy = false
+			v:Destroy()
+		end
+	end
+end)
