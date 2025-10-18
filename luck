@@ -64,7 +64,7 @@ main:Button("Auto Magma", function()
 			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Lava.Touch.CFrame
 		end
 
-		repeat task.wait() until tonumber(string.sub(workspace.Magma.BillboardGui.Gain.ContentText, 2, 4)) > 1
+		repeat task.wait() until workspace.Magma.BillboardGui.Gain.ContentText ~= "+1 Magma"
 
 		while workspace.Magma.BillboardGui.Gain.ContentText ~= "+1 Magma" and magma do task.wait()
 			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Magma.Touch.CFrame
